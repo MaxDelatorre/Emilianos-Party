@@ -1,0 +1,207 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ 
+:root {
+  --bg:      #07080d;
+  --panel:   rgba(255, 255, 255, 0.05);
+  --line:    rgba(255, 255, 255, 0.12);
+  --text:    #f3f4f8;
+  --muted:   #8b8fa3;
+  --accent:  #3d7bff;
+  --accent2: #7cf0ff;
+}
+ 
+html, body {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+ 
+/* ── BACKGROUND ── */
+.bg-glow {
+  position: fixed;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-a { background: var(--accent);  top: -25vmax; left: -20vmax; }
+.glow-b { background: #8a3dff;        bottom: -30vmax; right: -20vmax; opacity: 0.25; }
+ 
+.floaters {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+ 
+.floater {
+  position: absolute;
+  bottom: -60px;
+  font-family: 'Bebas Neue', sans-serif;
+  color: rgba(255, 255, 255, 0.06);
+  animation: rise var(--dur) linear var(--delay) infinite;
+}
+ 
+@keyframes rise {
+  to { transform: translateY(-120vh) rotate(var(--rot)); }
+}
+ 
+/* ── LAYOUT ── */
+.wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 56px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  text-align: center;
+}
+ 
+/* ── HERO ── */
+.hero > * {
+  opacity: 0;
+  animation: fadeUp 0.9s ease forwards;
+}
+.eyebrow  { animation-delay: 0.1s; }
+.name     { animation-delay: 0.3s; }
+.age      { animation-delay: 0.5s; }
+.tagline  { animation-delay: 0.7s; }
+ 
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+ 
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+ 
+.name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-size: clamp(3.2rem, 15vw, 5.5rem);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+ 
+.age {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(9rem, 42vw, 15rem);
+  line-height: 0.85;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 40px rgba(61, 123, 255, 0.35));
+}
+ 
+.tagline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  letter-spacing: 0.35em;
+  margin-top: 8px;
+}
+ 
+/* ── COUNTDOWN ── */
+.countdown {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+ 
+.unit {
+  min-width: 68px;
+  padding: 12px 8px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+}
+ 
+.unit span {
+  display: block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--accent2);
+}
+ 
+.unit small, .info-item small {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+ 
+/* ── INFO ── */
+.info {
+  width: 100%;
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+ 
+.info-item {
+  background: rgba(12, 14, 22, 0.9);
+  padding: 16px 12px;
+}
+ 
+.info-item strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+ 
+/* ── RSVP ── */
+.rsvp {
+  display: inline-block;
+  padding: 16px 64px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), #6a5bff);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  box-shadow: 0 10px 30px rgba(61, 123, 255, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+ 
+.rsvp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 38px rgba(61, 123, 255, 0.5);
+}
+ 
+/* ── DESKTOP ── */
+@media (min-width: 520px) {
+  .info { grid-template-columns: repeat(3, 1fr); }
+}
+ 
+@media (max-width: 380px) {
+  .unit { min-width: 58px; }
+  .unit span { font-size: 1.8rem; }
+  .countdown { gap: 8px; }
+}
+ 
